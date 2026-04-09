@@ -1,16 +1,18 @@
 /**
  * Sync design-md/ from upstream VoltAgent/awesome-design-md
  *
+ * Only copies files that do not yet exist locally (additions only).
+ * Existing files are never overwritten.
+ *
  * Usage:
- *   pnpm sync-upstream              # sync all changes
- *   pnpm sync-upstream -- --dry-run # preview changes without applying
+ *   pnpm sync-upstream              # sync new additions
+ *   pnpm sync-upstream -- --dry-run # preview additions without applying
  */
 
 import { execSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
-import crypto from 'node:crypto'
 
 const UPSTREAM = 'https://github.com/VoltAgent/awesome-design-md.git'
 const LOCAL_DIR = path.resolve(process.cwd(), '../design-md')
@@ -44,13 +46,12 @@ async function main() {
 // ── Sync ──────────────────────────────────────────────────────────────────
 
 interface SyncResult {
-  added:     string[]
-  updated:   string[]
-  unchanged: string[]
+  added:    string[]
+  skipped:  string[]  // already exist locally — not touched
 }
 
 function sync(srcDir: string, destDir: string): SyncResult {
-  const result: SyncResult = { added: [], updated: [], unchanged: [] }
+  const result: SyncResult = { added: [], skipped: [] }
 
   const themes = fs.readdirSync(srcDir).filter((d) =>
     fs.statSync(path.join(srcDir, d)).isDirectory()
@@ -59,10 +60,6 @@ function sync(srcDir: string, destDir: string): SyncResult {
   for (const theme of themes) {
     const srcTheme  = path.join(srcDir, theme)
     const destTheme = path.join(destDir, theme)
-
-    if (!fs.existsSync(destTheme)) {
-      if (!DRY_RUN) fs.mkdirSync(destTheme, { recursive: true })
-    }
 
     const files = walkDir(srcTheme)
     for (const rel of files) {
@@ -76,11 +73,8 @@ function sync(srcDir: string, destDir: string): SyncResult {
           fs.copyFileSync(srcFile, destFile)
         }
         result.added.push(label)
-      } else if (!sameContent(srcFile, destFile)) {
-        if (!DRY_RUN) fs.copyFileSync(srcFile, destFile)
-        result.updated.push(label)
       } else {
-        result.unchanged.push(label)
+        result.skipped.push(label)
       }
     }
   }
@@ -94,16 +88,13 @@ function report(r: SyncResult) {
   if (r.added.length) {
     console.log(`✚  Added (${r.added.length}):`)
     r.added.forEach((f) => console.log(`   ${f}`))
+  } else {
+    console.log('✓  No new files found upstream.')
   }
 
-  if (r.updated.length) {
-    console.log(`\n↑  Updated (${r.updated.length}):`)
-    r.updated.forEach((f) => console.log(`   ${f}`))
-  }
+  console.log(`\n—  Skipped (already exist): ${r.skipped.length} files`)
 
-  console.log(`\n✓  Unchanged: ${r.unchanged.length} files`)
-
-  if (DRY_RUN && (r.added.length || r.updated.length)) {
+  if (DRY_RUN && r.added.length) {
     console.log('\nRun without --dry-run to apply these changes.')
   }
 
@@ -125,12 +116,6 @@ function walkDir(dir: string, base = ''): string[] {
     else files.push(rel)
   }
   return files
-}
-
-function sameContent(a: string, b: string): boolean {
-  const hash = (f: string) =>
-    crypto.createHash('md5').update(fs.readFileSync(f)).digest('hex')
-  return hash(a) === hash(b)
 }
 
 // ── Entry ─────────────────────────────────────────────────────────────────

@@ -253,6 +253,14 @@ main {
 .btn-ghost     { color: var(--text2); background: transparent; border: 1px solid var(--border); }
 .btn-ghost:hover { color: var(--text); background: var(--bg3); text-decoration: none; }
 
+/* ── Button group ────────────────────────────────────── */
+.btn-group { display: inline-flex; }
+.btn-group .btn-group-item { border-radius: 0; }
+.btn-group .btn-group-item:first-child { border-radius: 8px 0 0 8px; }
+.btn-group .btn-group-item:last-child  { border-radius: 0 8px 8px 0; }
+.btn-group .btn-group-divider { border-left: 1px solid rgba(255,255,255,0.25); }
+.btn-group .btn-group-item:disabled { opacity: 0.75; cursor: default; }
+
 /* ── Markdown content ────────────────────────────────── */
 .md-content { font-family: var(--serif); font-size: 1rem; line-height: 1.8; }
 

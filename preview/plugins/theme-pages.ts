@@ -199,21 +199,48 @@ function switchScreenshot(mode) {
 }
 
 function generateDesignHtml(theme: ThemeMeta): string {
-  const downloadBtn = `<a href="${esc(theme.designMdUrl)}" download="${esc(theme.id)}-DESIGN.md" class="btn btn-primary">${icon('arrow-down', 14)} Download</a>`
+  const mdUrl = esc(theme.designMdUrl)
+  const fileName = `${esc(theme.id)}-DESIGN.md`
+
+  const btnGroup = (id: string) => `
+<div class="btn-group">
+  <a href="${mdUrl}" download="${fileName}" class="btn btn-primary btn-group-item">${icon('arrow-down', 14)} Download</a>
+  <button class="btn btn-primary btn-group-item btn-group-divider" id="${id}" onclick="copyDesignMd('${mdUrl}','${id}')">${icon('copy', 14)} Copy</button>
+</div>`
 
   const topBar = `
 <div class="doc-bar">
   <span class="doc-bar-title"><strong>${esc(theme.name)}</strong> · DESIGN.md</span>
-  ${downloadBtn}
+  ${btnGroup('copy-btn-top')}
 </div>`
 
   const bottomBar = `
 <div class="doc-bar">
   <div class="doc-bar-actions">
     <button class="btn btn-secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">${icon('arrow-up', 14)} Back to top</button>
-    ${downloadBtn}
+    ${btnGroup('copy-btn-bottom')}
   </div>
 </div>`
+
+  const copyScript = `
+<script>
+function copyDesignMd(url, btnId) {
+  var btn = document.getElementById(btnId);
+  fetch(url)
+    .then(function(r){ return r.text(); })
+    .then(function(text){
+      return navigator.clipboard.writeText(text);
+    })
+    .then(function(){
+      if (!btn) return;
+      var orig = btn.innerHTML;
+      btn.innerHTML = '${icon('check', 14)} Copied!';
+      btn.disabled = true;
+      setTimeout(function(){ btn.innerHTML = orig; btn.disabled = false; }, 2000);
+    })
+    .catch(function(){ alert('Copy failed — please use Download instead.'); });
+}
+</script>`
 
   return pageShell({
     title: `${theme.name} — DESIGN.md`,
@@ -222,7 +249,7 @@ function generateDesignHtml(theme: ThemeMeta): string {
       { label: theme.name, href: `/themes/${theme.id}/` },
       { label: 'DESIGN.md' },
     ],
-    content: `${topBar}<div class="md-content">${theme.designHtml}</div>${bottomBar}`,
+    content: `${topBar}<div class="md-content">${theme.designHtml}</div>${bottomBar}${copyScript}`,
     prevTheme: theme.prevTheme,
     nextTheme: theme.nextTheme,
   })
