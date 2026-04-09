@@ -1,0 +1,29 @@
+{
+  "name": "awesome-design-md-preview",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "sync-upstream": "tsx scripts/sync-upstream.ts",
+    "sync-upstream:dry": "tsx scripts/sync-upstream.ts -- --dry-run",
+    "thumbnails": "tsx scripts/thumbnails.ts",
+    "thumbnails:force": "tsx scripts/thumbnails.ts -- --force"
+  },
+  "dependencies": {
+    "fuse.js": "^7.3.0",
+    "geist": "^1.7.0",
+    "vue": "^3.5.32"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^25.5.2",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "markdown-it": "^14.1.1",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.7"
+  }
+}

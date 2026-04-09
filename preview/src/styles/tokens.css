@@ -1,0 +1,50 @@
+/* Cursor design system color tokens — Vue SPA */
+:root,
+[data-theme='light'] {
+  --color-bg:       #f2f1ed;
+  --color-bg-2:     #ebeae5;
+  --color-bg-3:     #e6e5e0;
+  --color-bg-4:     #e1e0db;
+  --color-text:     #26251e;
+  --color-text-2:   #6b6960;
+  --color-text-3:   #9e9d99;
+  --color-accent:   #f54e00;
+  --color-border:   rgba(38, 37, 30, 0.12);
+  --color-error:    #cf2d56;
+  --color-success:  #1f8a65;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', monospace;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(38, 37, 30, 0.08);
+  --shadow-md: 0 4px 12px rgba(38, 37, 30, 0.10);
+}
+
+[data-theme='dark'] {
+  --color-bg:       #1a1917;
+  --color-bg-2:     #242320;
+  --color-bg-3:     #2e2d29;
+  --color-bg-4:     #383732;
+  --color-text:     #e8e7e3;
+  --color-text-2:   #9e9d99;
+  --color-text-3:   #6b6960;
+  --color-accent:   #f54e00;
+  --color-border:   rgba(232, 231, 227, 0.12);
+  --color-error:    #e8365d;
+  --color-success:  #2aad80;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

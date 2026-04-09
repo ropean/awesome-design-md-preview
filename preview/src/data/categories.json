@@ -1,0 +1,28 @@
+{
+  "AI & Machine Learning": [
+    "claude", "cohere", "elevenlabs", "minimax", "mistral.ai",
+    "ollama", "opencode.ai", "replicate", "runwayml", "together.ai",
+    "voltagent", "x.ai"
+  ],
+  "Developer Tools & Platforms": [
+    "cursor", "expo", "linear.app", "lovable", "mintlify",
+    "posthog", "raycast", "resend", "sentry", "supabase",
+    "superhuman", "vercel", "warp", "zapier"
+  ],
+  "Infrastructure & Cloud": [
+    "clickhouse", "composio", "hashicorp", "mongodb", "sanity", "stripe"
+  ],
+  "Design & Productivity": [
+    "airtable", "cal", "clay", "figma", "framer",
+    "intercom", "miro", "notion", "pinterest", "webflow"
+  ],
+  "Fintech & Crypto": [
+    "coinbase", "kraken", "revolut", "wise"
+  ],
+  "Enterprise & Consumer": [
+    "airbnb", "apple", "ibm", "nvidia", "spacex", "spotify", "uber"
+  ],
+  "Car Brands": [
+    "bmw", "ferrari", "lamborghini", "renault", "tesla"
+  ]
+}

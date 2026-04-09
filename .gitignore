@@ -1,1 +1,31 @@
+# ── OS ───────────────────────────────────────────────────
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encdata
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ── Editors & IDEs ───────────────────────────────────────
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ── Claude Code ──────────────────────────────────────────
+.claude/settings.local.json
+
+# ── Misc ─────────────────────────────────────────────────
+*.log
+*.env
+*.env.local

@@ -1,28 +1,26 @@
-# Contributing to Awesome Design MD
+# Contributing
 
-Thanks for contributing.
+Thanks for your interest in improving awesome-design-md-preview.
 
-This repository is a curated collection of DESIGN.md files extracted from popular websites. Each file captures a site's complete visual language in a format any AI agent can read.
+## Reporting a Bug
 
-## How to Contribute
+[Open an issue](https://github.com/ropean/awesome-design-md-preview/issues/new?template=bug-report.yml) and describe:
 
-### Request a New Site
+- What you expected to happen
+- What actually happened
+- Browser / OS if it's a visual issue
 
-To request a DESIGN.md for a website, [open an issue](https://github.com/VoltAgent/awesome-design-md/issues/new?template=design-md-request.yml) with the website URL.
+## Suggesting an Improvement
 
-We receive many requests, and maintainer bandwidth is limited. Sponsor-backed requests are prioritized, consider supporting the project via [GitHub Sponsors](https://github.com/sponsors/VoltAgent) if you'd like faster turnaround.
+Open an issue first to discuss before submitting a PR. This avoids wasted effort if the direction doesn't fit the project.
 
-### Improve an Existing DESIGN.md
+## Submitting a PR
 
-If you notice issues with an existing file:
-
-1. **Open an issue first** to describe what you'd like to change and get feedback from maintainers
-2. Open the site's `DESIGN.md`
-3. Compare against the live site
-4. Fix incorrect hex values, missing tokens, or weak descriptions
-5. Update the `preview.html` and `preview-dark.html` if your changes affect displayed tokens
-6. Open a PR with before/after rationale
+1. Fork the repo and create a branch from `main`
+2. `cd preview && pnpm install && pnpm dev`
+3. Make your changes
+4. Open a PR with a short description of what changed and why
 
 ## License
 
-By contributing, you agree your contributions are provided under the repository license terms.
+By contributing, you agree your contributions are provided under the [MIT License](LICENSE).

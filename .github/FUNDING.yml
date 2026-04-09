@@ -1,4 +1,29 @@
-# These are supported funding model platforms
+# GitHub Sponsor button configuration
+# Supported platforms — fill in your username or URL, delete lines you don't use
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
 
-github: voltagent
+# GitHub Sponsors (requires approval at github.com/sponsors)
+# github: your-github-username
 
+# Patreon
+# patreon: your-patreon-username
+
+# Open Collective
+# open_collective: your-collective-slug
+
+# Ko-fi (free, connects to PayPal — recommended for US)
+# ko_fi: your-ko-fi-username
+
+# Buy Me a Coffee
+# buy_me_a_coffee: your-username
+
+# Liberapay
+# liberapay: your-username
+
+# IssueHunt
+# issuehunt: your-username
+
+# Custom URLs (PayPal.me, 爱发电, etc.) — up to 4 entries
+custom:
+  - https://paypal.me/yourname
+  # - https://afdian.com/your-page

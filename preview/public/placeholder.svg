@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600" fill="none">
+  <rect width="400" height="600" fill="#ebeae5"/>
+  <!-- Fake header bar -->
+  <rect x="0" y="0" width="400" height="40" fill="#e6e5e0"/>
+  <rect x="16" y="13" width="80" height="14" rx="4" fill="#dddcd8"/>
+  <rect x="304" y="13" width="80" height="14" rx="4" fill="#dddcd8"/>
+  <!-- Fake hero image block -->
+  <rect x="24" y="60" width="352" height="220" rx="8" fill="#e1e0db"/>
+  <rect x="40" y="76" width="320" height="188" rx="4" fill="#dddcd8"/>
+  <!-- Fake hero text -->
+  <rect x="24" y="304" width="240" height="24" rx="4" fill="#e1e0db"/>
+  <rect x="24" y="340" width="180" height="16" rx="4" fill="#e6e5e0"/>
+  <rect x="24" y="364" width="200" height="16" rx="4" fill="#e6e5e0"/>
+  <!-- Fake button -->
+  <rect x="24" y="400" width="104" height="36" rx="8" fill="#dddcd8"/>
+  <!-- Fake content rows -->
+  <rect x="24" y="464" width="352" height="12" rx="4" fill="#e6e5e0"/>
+  <rect x="24" y="484" width="300" height="12" rx="4" fill="#e6e5e0"/>
+  <rect x="24" y="504" width="320" height="12" rx="4" fill="#e6e5e0"/>
+  <rect x="24" y="524" width="260" height="12" rx="4" fill="#e6e5e0"/>
+</svg>
