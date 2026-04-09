@@ -12,4 +12,5 @@ export interface ThemeCard {
   thumbnailUrl: string
   thumbnailDarkUrl: string
   hasThumbnail: boolean
+  designMdUrl: string        // /design-md/$id/DESIGN.md (for download)
 }

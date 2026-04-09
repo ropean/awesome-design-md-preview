@@ -49,6 +49,7 @@ function onImgError() { imgError.value = true }
         <a :href="theme.previewUrl"     target="_blank" rel="noopener" data-tooltip="Light preview" class="link-icon" @click.stop><SvgIcon name="sun"       :size="16" /></a>
         <a :href="theme.previewDarkUrl" target="_blank" rel="noopener" data-tooltip="Dark preview"  class="link-icon" @click.stop><SvgIcon name="moon"      :size="16" /></a>
         <a :href="theme.designPageUrl"  target="_blank" rel="noopener" data-tooltip="DESIGN.md"     class="link-icon" @click.stop><SvgIcon name="file-text" :size="16" /></a>
+        <a :href="theme.designMdUrl" :download="`${theme.id}-DESIGN.md`" data-tooltip="Download DESIGN.md" class="link-icon" @click.stop><SvgIcon name="file-down" :size="16" /></a>
       </div>
     </div>
   </a>

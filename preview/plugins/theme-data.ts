@@ -114,10 +114,10 @@ export function themeDataPlugin(themes: ThemeMeta[]): Plugin {
       const cards: ThemeCard[] = themes.map(
         ({ id, name, letter, category, description, descriptionHtml,
            previewUrl, previewDarkUrl, designPageUrl,
-           thumbnailUrl, thumbnailDarkUrl, hasThumbnail }) => ({
+           thumbnailUrl, thumbnailDarkUrl, hasThumbnail, designMdUrl }) => ({
           id, name, letter, category, description, descriptionHtml,
           previewUrl, previewDarkUrl, designPageUrl,
-          thumbnailUrl, thumbnailDarkUrl, hasThumbnail,
+          thumbnailUrl, thumbnailDarkUrl, hasThumbnail, designMdUrl,
         }),
       )
       return `export default ${JSON.stringify(cards)}`
