@@ -96,7 +96,7 @@ function onLetterChange(letter: string) {
       />
       <AlphabetNav
         :available="availableLetters"
-        :total="baseFiltered.length"
+        :total="availableLetters.size"
         v-model="activeLetter"
         @update:model-value="onLetterChange"
       />
