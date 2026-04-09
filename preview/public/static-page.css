@@ -15,7 +15,9 @@
   --sans:    'Space Grotesk', system-ui, sans-serif;
   --serif:   'Lora', Georgia, serif;
   --mono:    'JetBrains Mono', 'Fira Code', monospace;
-  --radius:  8px;
+  --radius:       8px;
+  --radius-pill:  9999px;
+  --space-1:      8px;
 }
 
 [data-theme='dark'] {
@@ -43,6 +45,11 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+::-webkit-scrollbar { width: var(--space-1); height: var(--space-1); }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--text3); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-thumb:hover { background: var(--text2); }
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
