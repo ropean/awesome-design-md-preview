@@ -41,7 +41,11 @@ export function buildThemeData(): ThemeMeta[] {
     .readdirSync(DESIGN_MD_DIR)
     .filter((d) => {
       try {
-        return fs.statSync(path.join(DESIGN_MD_DIR, d)).isDirectory()
+        const dirPath = path.join(DESIGN_MD_DIR, d)
+        return (
+          fs.statSync(dirPath).isDirectory() &&
+          fs.existsSync(path.join(dirPath, 'DESIGN.md'))
+        )
       } catch {
         return false
       }
