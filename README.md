@@ -1,7 +1,7 @@
 <div align="center">
-  <img src="preview/public/thumbnails/cursor/preview-thumbnail.webp" width="234" />
-  <img src="preview/public/thumbnails/airbnb/preview-thumbnail.webp" width="234" />
-  <img src="preview/public/thumbnails/figma/preview-thumbnail.webp" width="234" />
+  <img src="preview/public/thumbnails/cursor/preview-thumbnail.webp" width="220" />
+  <img src="preview/public/thumbnails/airbnb/preview-thumbnail.webp" width="220" />
+  <img src="preview/public/thumbnails/figma/preview-thumbnail.webp" width="220" />
 </div>
 
 <br/>
