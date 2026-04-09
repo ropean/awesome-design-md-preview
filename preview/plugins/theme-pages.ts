@@ -186,13 +186,19 @@ function switchScreenshot(mode) {
     ? theme.readmeHtmlDetail.replace('<!--SCREENSHOT_PREVIEW-->', screenshotBlock)
     : theme.readmeHtmlDetail + screenshotBlock
 
+  const disclaimer = `
+<div class="disclaimer">
+  ${icon('info', 14)}
+  <span>Not an official ${esc(theme.name)} design system. A curated starting point for building ${esc(theme.name).toLowerCase()}-like UIs with your AI coding agent.</span>
+</div>`
+
   return pageShell({
     title: `${theme.name} — Design System`,
     breadcrumbs: [
       { label: 'Home', href: '/' },
       { label: theme.name },
     ],
-    content: `<div class="md-content">${readme}</div>`,
+    content: `${disclaimer}<div class="md-content">${readme}</div>`,
     prevTheme: theme.prevTheme,
     nextTheme: theme.nextTheme,
   })
