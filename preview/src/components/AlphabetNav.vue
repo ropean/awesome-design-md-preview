@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   available: Set<string>  // letters present in the current filtered result set
-  total: number           // total themes available (shown on the All button)
+  total: number           // count of available letters (shown on the All button)
 }>()
 
 const model = defineModel<string>({ default: '' })
