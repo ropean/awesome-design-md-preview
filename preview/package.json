@@ -1,11 +1,12 @@
 {
-  "name": "awesome-design-md-preview",
+  "name": "preview",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "vite build",
     "dev": "vite",
     "preview": "vite preview",
+    "ship": "wrangler pages deploy ./dist --project-name awesome-design-md-preview",
     "sync-upstream": "tsx scripts/sync-upstream.ts",
     "sync-upstream:dry": "tsx scripts/sync-upstream.ts -- --dry-run",
     "thumbnails": "tsx scripts/thumbnails.ts",
