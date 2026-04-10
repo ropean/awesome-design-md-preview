@@ -83,6 +83,9 @@ img { max-width: 100%; display: block; }
   color: var(--text);
   text-decoration: none;
   white-space: nowrap;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
 }
 .site-logo:hover { text-decoration: none; color: var(--accent); }
 

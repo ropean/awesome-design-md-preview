@@ -11,7 +11,7 @@ import SvgIcon from './SvgIcon.vue'
       {{ SITE_TITLE }}
     </a>
     <nav class="header-links">
-      <a :href="REPO_PREVIEW" target="_blank" rel="noopener" class="header-link">GitHub <SvgIcon name="external-link" :size="13" /></a>
+      <a :href="REPO_PREVIEW" target="_blank" rel="noopener" class="header-link"><span>GitHub</span> <SvgIcon name="external-link" :size="13" /></a>
       <DarkModeToggle />
     </nav>
   </header>
@@ -40,6 +40,7 @@ import SvgIcon from './SvgIcon.vue'
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 .site-logo:hover { color: var(--color-accent); }
 .logo-icon { display: block; flex-shrink: 0; }
@@ -47,7 +48,8 @@ import SvgIcon from './SvgIcon.vue'
 .header-links {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .header-link {
@@ -55,10 +57,15 @@ import SvgIcon from './SvgIcon.vue'
   font-size: 0.8125rem;
   color: var(--color-text-2);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
 }
 .header-link:hover { color: var(--color-accent); }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .site-header { padding: 12px 16px; }
+  .header-link span { display: none; }
 }
 </style>

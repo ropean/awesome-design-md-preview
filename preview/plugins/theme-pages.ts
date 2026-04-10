@@ -120,7 +120,7 @@ function pageShell(opts: {
 <header class="site-header">
   <a href="/" class="site-logo"><img src="/favicon.svg" alt="" width="32" height="32" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:8px" />${SITE_TITLE}</a>
   <nav class="header-links">
-    <a href="${REPO_PREVIEW}" target="_blank" rel="noopener" class="header-link">GitHub ${icon('external-link', 13)}</a>
+    <a href="${REPO_PREVIEW}" target="_blank" rel="noopener" class="header-link"><span>GitHub</span> ${icon('external-link', 13)}</a>
     <button class="theme-toggle" onclick="(function(){var d=document.documentElement,t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);localStorage.setItem('theme',t);})()">
       <span class="toggle-icon-sun">${icon('sun', 16)}</span><span class="toggle-icon-moon">${icon('moon', 16)}</span>
     </button>
