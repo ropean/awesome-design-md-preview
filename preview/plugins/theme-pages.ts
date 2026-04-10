@@ -2,7 +2,7 @@ import type { Plugin } from 'vite'
 import fs from 'node:fs'
 import path from 'node:path'
 import type { ThemeMeta } from './theme-data.js'
-import { SITE_TITLE, REPO_ORIGINAL, REPO_PREVIEW } from '../src/constants.js'
+import { SITE_TITLE, REPO_ORIGINAL, REPO_PREVIEW, designMdFileName } from '../src/constants.js'
 
 const DESIGN_MD_DIR = path.resolve(process.cwd(), '../design-md')
 const OUT_DIR = path.resolve(process.cwd(), 'dist')
@@ -161,7 +161,10 @@ function generateDetailHtml(theme: ThemeMeta): string {
       <a href="${esc(theme.previewDarkUrl)}" target="_blank" rel="noopener" class="sc-link">Dark Preview ${icon('external-link', 12)}</a>
     </div>
     <div class="sc-group sc-group--end">
-      <a href="${esc(theme.designPageUrl)}" class="btn btn-primary">Design System ${icon('arrow-right', 14)}</a>
+      <div class="btn-group">
+        <a href="${esc(theme.designMdUrl)}" download="${esc(designMdFileName(theme.id))}" class="btn btn-primary btn-group-item">${icon('arrow-down', 14)} Download MD</a>
+        <a href="${esc(theme.designPageUrl)}" class="btn btn-primary btn-group-item btn-group-divider">Design System ${icon('arrow-right', 14)}</a>
+      </div>
     </div>
   </div>`
 
@@ -210,7 +213,7 @@ function switchScreenshot(mode) {
 
 function generateDesignHtml(theme: ThemeMeta): string {
   const mdUrl = esc(theme.designMdUrl)
-  const fileName = `${esc(theme.id)}-DESIGN.md`
+  const fileName = esc(designMdFileName(theme.id))
 
   const btnGroup = (id: string) => `
 <div class="btn-group">
