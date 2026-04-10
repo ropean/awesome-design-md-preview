@@ -8,7 +8,6 @@
     "ship": "pnpm --filter preview ship",
     "sync-upstream": "pnpm --filter preview sync-upstream",
     "sync-upstream:dry": "pnpm --filter preview sync-upstream:dry",
-    "thumbnails": "pnpm --filter preview thumbnails",
-    "rclone-upload": "rclone copy ./design-screenshots cf:design-screenshots --progress --transfers=4 --checkers=8"
+    "thumbnails": "pnpm --filter preview thumbnails"
   }
 }
