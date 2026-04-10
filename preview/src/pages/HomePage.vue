@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import Fuse from 'fuse.js'
 import themes from 'virtual:theme-data'
+import categories from '../data/categories.json'
 import { SITE_TITLE } from '../constants'
 import ThemeCard from '../components/ThemeCard.vue'
 import SearchBar from '../components/SearchBar.vue'
@@ -13,16 +14,8 @@ const query = ref('')
 const activeCategory = ref('all')
 const activeLetter = ref('')
 
-// ── Category order (matches README.md) ────────────────────────────────────
-const CATEGORY_ORDER = [
-  'AI & Machine Learning',
-  'Developer Tools & Platforms',
-  'Infrastructure & Cloud',
-  'Design & Productivity',
-  'Fintech & Crypto',
-  'Enterprise & Consumer',
-  'Car Brands',
-]
+// ── Category order: derived from categories.json key order ────────────────
+const CATEGORY_ORDER = Object.keys(categories)
 
 // ── Fuse.js index (all themes, built once) ─────────────────────────────────
 const fuse = new Fuse(themes, {

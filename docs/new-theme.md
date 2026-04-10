@@ -26,12 +26,12 @@ Every theme must be registered in `preview/src/data/categories.json`. Add the th
 | Category | Description |
 |----------|-------------|
 | `AI & Machine Learning` | AI products, LLM tools, model providers |
-| `Developer Tools & Platforms` | IDEs, CI/CD, dev infrastructure, coding tools |
-| `Infrastructure & Cloud` | Databases, cloud platforms, DevOps |
-| `Design & Productivity` | Design tools, no-code, productivity apps |
-| `Fintech & Crypto` | Finance, payments, crypto products |
-| `Enterprise & Consumer` | Major consumer brands, enterprise software |
 | `Car Brands` | Automotive brands |
+| `Design & Productivity` | Design tools, no-code, productivity apps |
+| `Developer Tools & Platforms` | IDEs, CI/CD, dev infrastructure, coding tools |
+| `Enterprise & Consumer` | Major consumer brands, enterprise software |
+| `Fintech & Crypto` | Finance, payments, crypto products |
+| `Infrastructure & Cloud` | Databases, cloud platforms, DevOps |
 | `Original` | Design systems created from scratch, not derived from any existing product or brand |
 
 **If the theme is an original design** (not inspired by a real product), add it to the `"Original"` category. This displays a distinct badge on the theme's detail page in place of the standard disclaimer.
