@@ -12,5 +12,6 @@ export interface ThemeCard {
   thumbnailUrl: string
   thumbnailDarkUrl: string
   hasThumbnail: boolean
+  isOriginal: boolean        // true if README contains <!-- original -->
   designMdUrl: string        // /design-md/$id/DESIGN.md (for download)
 }

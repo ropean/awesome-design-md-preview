@@ -31,3 +31,6 @@ $RECYCLE.BIN/
 *.env.local
 
 node_modules
+
+# design screenshots
+design-screenshots

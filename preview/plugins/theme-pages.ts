@@ -186,7 +186,11 @@ function switchScreenshot(mode) {
     ? theme.readmeHtmlDetail.replace('<!--SCREENSHOT_PREVIEW-->', screenshotBlock)
     : theme.readmeHtmlDetail + screenshotBlock
 
-  const disclaimer = `
+  const disclaimer = theme.isOriginal ? `
+<div class="disclaimer disclaimer--original">
+  ${icon('star', 14)}
+  <span>Original design system — created from scratch, not derived from any existing product or brand.</span>
+</div>` : `
 <div class="disclaimer">
   ${icon('info', 14)}
   <span>Not an official ${esc(theme.name)} design system. A curated starting point for building ${esc(theme.name).toLowerCase()}-like UIs with your AI coding agent.</span>

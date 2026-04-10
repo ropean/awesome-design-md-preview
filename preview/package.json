@@ -9,8 +9,7 @@
     "ship": "vite build && wrangler pages deploy ./dist --project-name awesome-design-md-preview",
     "sync-upstream": "tsx scripts/sync-upstream.ts",
     "sync-upstream:dry": "tsx scripts/sync-upstream.ts -- --dry-run",
-    "thumbnails": "tsx scripts/thumbnails.ts",
-    "thumbnails:force": "tsx scripts/thumbnails.ts -- --force"
+    "thumbnails": "tsx scripts/thumbnails.ts"
   },
   "dependencies": {
     "fuse.js": "^7.3.0",

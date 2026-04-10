@@ -2,21 +2,20 @@
  * Thumbnail generation script
  *
  * Usage:
- *   pnpm thumbnails              # skip existing thumbnails
- *   pnpm thumbnails -- --force   # regenerate all
+ *   pnpm thumbnails   # generate missing thumbnails; prompts if all exist
  */
 
 import fs from 'node:fs'
 import path from 'node:path'
 import https from 'node:https'
 import http from 'node:http'
+import readline from 'node:readline'
 import sharp from 'sharp'
 
 const DESIGN_MD_DIR = path.resolve(process.cwd(), '../design-md')
 const THUMB_DIR = path.resolve(process.cwd(), 'public/thumbnails')
 const THUMB_W = 640
 const THUMB_H = 960
-const FORCE = process.argv.includes('--force')
 
 interface ThumbTask {
   themeId: string
@@ -29,12 +28,74 @@ interface ThumbTask {
 // ── Main ──────────────────────────────────────────────────────────────────
 
 async function main() {
+  const tasks = buildTasks()
+
+  console.log(`\nProcessing ${tasks.length} themes…\n`)
+
+  const { done, skipped, failed } = await runTasks(tasks, new Set())
+
+  console.log(`\nDone: ${done}  Skipped: ${skipped}  Failed: ${failed}\n`)
+
+  if (skipped > 0 && done === 0 && failed === 0) {
+    await promptRegenerate(tasks)
+  }
+}
+
+// ── Interactive prompt ────────────────────────────────────────────────────
+
+async function promptRegenerate(tasks: ThumbTask[]) {
+  const themeIds = new Set(tasks.map((t) => t.themeId))
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
+
+  const ask = () =>
+    new Promise<string>((resolve) => {
+      rl.question(
+        'All thumbnails already exist. Regenerate?\n  0  — all\n  X  — exit\n  or enter a theme name: ',
+        (ans) => resolve(ans.trim()),
+      )
+    })
+
+  while (true) {
+    const ans = await ask()
+
+    if (ans === '0') {
+      rl.close()
+      console.log()
+      const { done, failed } = await runTasks(tasks, new Set(), true)
+      console.log(`\nRegenerated: ${done}  Failed: ${failed}\n`)
+      return
+    }
+
+    if (ans.toLowerCase() === 'x' || ans === '') {
+      rl.close()
+      console.log('Exiting.')
+      return
+    }
+
+    const task = tasks.find((t) => t.themeId === ans)
+    if (!task) {
+      const closest = tasks.map((t) => t.themeId).join(', ')
+      console.log(`  Theme "${ans}" not found. Available: ${closest}`)
+      continue
+    }
+
+    rl.close()
+    console.log()
+    const { done, failed } = await runTasks([task], new Set(), true)
+    console.log(`\nRegenerated: ${done}  Failed: ${failed}\n`)
+    return
+  }
+}
+
+// ── Build task list ───────────────────────────────────────────────────────
+
+function buildTasks(): ThumbTask[] {
+  const tasks: ThumbTask[] = []
+
   const themeDirs = fs
     .readdirSync(DESIGN_MD_DIR)
     .filter((d) => fs.statSync(path.join(DESIGN_MD_DIR, d)).isDirectory())
     .sort()
-
-  const tasks: ThumbTask[] = []
 
   for (const id of themeDirs) {
     const readmePath = path.join(DESIGN_MD_DIR, id, 'README.md')
@@ -61,14 +122,22 @@ async function main() {
     })
   }
 
-  console.log(`\nProcessing ${tasks.length} themes (force=${FORCE})\n`)
+  return tasks
+}
 
+// ── Run tasks ─────────────────────────────────────────────────────────────
+
+async function runTasks(
+  tasks: ThumbTask[],
+  _unused: Set<never>,
+  force = false,
+): Promise<{ done: number; skipped: number; failed: number }> {
   let done = 0, skipped = 0, failed = 0
 
   for (const task of tasks) {
     const results = await Promise.allSettled([
-      processThumb(task.lightUrl, task.lightOut, `${task.themeId}/light`),
-      processThumb(task.darkUrl, task.darkOut, `${task.themeId}/dark`),
+      processThumb(task.lightUrl, task.lightOut, `${task.themeId}/light`, force),
+      processThumb(task.darkUrl, task.darkOut, `${task.themeId}/dark`, force),
     ])
 
     let anyDone = false, anySkip = false, anyFail = false
@@ -97,7 +166,7 @@ async function main() {
     }
   }
 
-  console.log(`\nDone: ${done}  Skipped: ${skipped}  Failed: ${failed}\n`)
+  return { done, skipped, failed }
 }
 
 // ── Process single thumbnail ──────────────────────────────────────────────
@@ -106,10 +175,11 @@ async function processThumb(
   url: string,
   outPath: string,
   label: string,
+  force: boolean,
 ): Promise<'done' | 'skipped'> {
   if (!url) return 'skipped'
 
-  if (!FORCE && fs.existsSync(outPath)) {
+  if (!force && fs.existsSync(outPath)) {
     return 'skipped'
   }
 
@@ -154,8 +224,8 @@ function download(url: string, label: string): Promise<Buffer> {
 
 function extractUrl(readme: string, dark: boolean): string | undefined {
   const pattern = dark
-    ? /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-dark-screenshot\.png)\)/
-    : /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-screenshot\.png)\)/
+    ? /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-dark-screenshot\.(?:png|webp))\)/
+    : /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-screenshot\.(?:png|webp))\)/
   return readme.match(pattern)?.[1]
 }
 

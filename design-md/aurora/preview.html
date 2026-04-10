@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System Preview: Aurora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-start:        #2e1065;
+    --bg-mid:          #4a044e;
+    --bg-end:          #1e1b4b;
+    --glass-05:        rgba(255, 255, 255, 0.05);
+    --glass-10:        rgba(255, 255, 255, 0.10);
+    --glass-20:        rgba(255, 255, 255, 0.20);
+    --glass-border:    rgba(255, 255, 255, 0.10);
+    --glass-border-md: rgba(255, 255, 255, 0.15);
+    --text-primary:    #f5f3ff;
+    --text-secondary:  #ede9fe;
+    --text-muted:      #c4b5fd;
+    --accent-violet:   #a78bfa;
+    --accent-fuchsia:  #e879f9;
+    --accent-mid:      #c084fc;
+    --accent-deep:     rgba(139, 92, 246, 0.30);
+    --accent-subtle:   rgba(167, 139, 250, 0.15);
+    --glow-shadow:     0 8px 32px rgba(139, 92, 246, 0.30);
+    --font-display:    'Space Grotesk', Inter, -apple-system, sans-serif;
+    --font-body:       'Inter', -apple-system, sans-serif;
+    --font-mono:       'JetBrains Mono', 'Fira Code', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-mid) 50%, var(--bg-end) 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.60;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Nav ───────────────────────────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; height: 64px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px) saturate(150%);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-brand {
+    font-family: var(--font-display); font-size: 18px; font-weight: 700;
+    background: linear-gradient(90deg, var(--accent-violet), var(--accent-fuchsia));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-display); font-size: 14px; font-weight: 500;
+    color: var(--text-muted); text-decoration: none; transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta {
+    display: inline-flex; align-items: center;
+    background: linear-gradient(135deg, var(--accent-violet), var(--accent-fuchsia));
+    color: #fff; padding: 8px 20px; border-radius: 8px;
+    font-family: var(--font-display); font-size: 14px; font-weight: 500;
+    text-decoration: none; transition: box-shadow 0.15s;
+  }
+  .nav-cta:hover { box-shadow: 0 4px 20px rgba(139, 92, 246, 0.50); }
+
+  /* ── Hero ──────────────────────────────────────────────────────── */
+  .hero { padding: 80px 32px 64px; }
+  .hero-inner { max-width: 1200px; margin: 0 auto; }
+  .hero h1 {
+    font-family: var(--font-display); font-size: 56px; font-weight: 700;
+    line-height: 1.07; letter-spacing: -0.02em; margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--accent-violet), var(--accent-fuchsia));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 18px; line-height: 1.60; color: var(--text-secondary);
+    max-width: 600px; margin-bottom: 36px;
+  }
+  .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ── Buttons ───────────────────────────────────────────────────── */
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--accent-violet), var(--accent-fuchsia));
+    color: #fff; padding: 10px 24px; border-radius: 8px; border: none;
+    font-family: var(--font-display); font-size: 15px; font-weight: 500;
+    text-decoration: none; cursor: pointer; transition: box-shadow 0.15s;
+  }
+  .btn-primary:hover { box-shadow: 0 4px 20px rgba(139, 92, 246, 0.50); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--glass-05); color: var(--text-secondary);
+    padding: 10px 24px; border-radius: 8px;
+    border: 1px solid var(--glass-border-md);
+    font-family: var(--font-display); font-size: 15px; font-weight: 500;
+    text-decoration: none; cursor: pointer;
+    backdrop-filter: blur(8px); transition: background 0.15s, border-color 0.15s;
+  }
+  .btn-ghost:hover { background: var(--glass-10); border-color: rgba(255,255,255,0.25); }
+
+  .btn-link {
+    display: inline-flex; align-items: center;
+    background: transparent; color: var(--accent-violet);
+    padding: 10px 0; border: none;
+    font-family: var(--font-display); font-size: 15px; font-weight: 500;
+    text-decoration: none; cursor: pointer; transition: color 0.15s;
+  }
+  .btn-link:hover { color: var(--accent-fuchsia); text-decoration: underline; }
+
+  /* ── Sections ──────────────────────────────────────────────────── */
+  .section { padding: 56px 32px; max-width: 1200px; margin: 0 auto; }
+  .section-glass {
+    background: var(--glass-05);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .section-glass .section { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--font-mono); font-size: 12px; font-weight: 400;
+    color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--font-display); font-size: 32px; font-weight: 600;
+    line-height: 1.20; letter-spacing: -0.01em; margin-bottom: 32px;
+    color: var(--text-primary);
+  }
+  .section-divider { border: none; border-top: 1px solid var(--glass-border); }
+
+  /* ── Colors ────────────────────────────────────────────────────── */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .color-swatch {
+    background: var(--glass-05); border: 1px solid var(--glass-border);
+    border-radius: 12px; overflow: hidden; backdrop-filter: blur(8px);
+  }
+  .color-swatch-block { height: 72px; width: 100%; }
+  .color-swatch-info { padding: 10px 12px; }
+  .color-swatch-name { font-family: var(--font-display); font-size: 13px; font-weight: 600; margin-bottom: 2px; color: var(--text-primary); }
+  .color-swatch-hex { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+  .color-swatch-role { font-size: 11px; color: var(--text-muted); margin-top: 3px; opacity: 0.7; }
+  .color-group-label { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--text-muted); margin: 24px 0 10px; }
+
+  /* ── Typography ────────────────────────────────────────────────── */
+  .type-sample { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--glass-border); }
+  .type-sample:last-child { border-bottom: none; }
+  .type-meta { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+  .gradient-text {
+    background: linear-gradient(90deg, var(--accent-violet), var(--accent-fuchsia));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* ── Button showcase ───────────────────────────────────────────── */
+  .button-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+  .button-item { text-align: center; }
+  .button-label { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-family: var(--font-mono); }
+
+  /* ── Cards ─────────────────────────────────────────────────────── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--glass-05); border: 1px solid var(--glass-border);
+    border-radius: 12px; padding: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    transition: background 0.2s, box-shadow 0.2s; cursor: pointer;
+  }
+  .card:hover { background: var(--glass-10); box-shadow: var(--glow-shadow); }
+  .card-selected {
+    background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(232,121,249,0.15));
+    border-left: 3px solid rgba(167, 139, 250, 0.60);
+    box-shadow: var(--glow-shadow);
+  }
+  .card h3 { font-family: var(--font-display); font-size: 20px; font-weight: 600; line-height: 1.30; margin-bottom: 8px; color: var(--text-primary); }
+  .card p { font-size: 14px; color: var(--text-secondary); line-height: 1.50; }
+  .card-tag {
+    display: inline-block; font-family: var(--font-display); font-size: 12px; font-weight: 500;
+    padding: 3px 10px; border-radius: 999px; margin-bottom: 12px;
+    background: var(--accent-subtle); color: var(--text-muted);
+    border: 1px solid rgba(167, 139, 250, 0.25);
+  }
+
+  /* ── Forms ─────────────────────────────────────────────────────── */
+  .form-group { margin-bottom: 24px; max-width: 420px; }
+  .form-label { display: block; font-family: var(--font-display); font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; }
+  .form-input {
+    width: 100%; background: var(--glass-05); color: var(--text-primary);
+    border: 1px solid var(--glass-border-md); border-radius: 8px;
+    padding: 10px 16px; height: 44px;
+    font-family: var(--font-body); font-size: 14px;
+    backdrop-filter: blur(8px); outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-input::placeholder { color: var(--text-muted); }
+  .form-input:focus { border-color: rgba(167,139,250,0.60); box-shadow: 0 0 0 3px rgba(192,132,252,0.20); }
+  .form-input--pill { border-radius: 999px; padding-left: 20px; }
+  .form-helper { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+  .form-textarea {
+    width: 100%; min-height: 88px; background: var(--glass-05); color: var(--text-primary);
+    border: 1px solid var(--glass-border-md); border-radius: 8px;
+    padding: 10px 16px; font-family: var(--font-body); font-size: 14px;
+    backdrop-filter: blur(8px); outline: none; resize: vertical;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .form-textarea:focus { border-color: rgba(167,139,250,0.60); box-shadow: 0 0 0 3px rgba(192,132,252,0.20); }
+
+  /* ── Spacing ───────────────────────────────────────────────────── */
+  .spacing-row { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .spacing-item { text-align: center; }
+  .spacing-block {
+    background: linear-gradient(135deg, var(--accent-violet), var(--accent-fuchsia));
+    margin-bottom: 6px; height: 28px; border-radius: 4px;
+  }
+  .spacing-value { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+
+  /* ── Radius ────────────────────────────────────────────────────── */
+  .radius-row { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .radius-item { text-align: center; }
+  .radius-box {
+    width: 64px; height: 64px; margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--accent-violet), var(--accent-fuchsia));
+  }
+  .radius-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+  .radius-context { font-size: 10px; color: var(--text-muted); opacity: 0.7; }
+
+  /* ── Elevation ─────────────────────────────────────────────────── */
+  .elevation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+  .elevation-card {
+    border-radius: 12px; padding: 20px; text-align: center;
+  }
+  .elevation-label { font-family: var(--font-display); font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--text-primary); }
+  .elevation-desc { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+
+  /* ── Footer ────────────────────────────────────────────────────── */
+  .footer {
+    padding: 32px; text-align: center;
+    background: rgba(0,0,0,0.30); color: var(--text-muted);
+    font-size: 12px; letter-spacing: 0.04em;
+    border-top: 1px solid var(--glass-border);
+  }
+  .footer a { color: var(--accent-violet); text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; }
+    .nav-links { display: none; }
+    .section { padding: 40px 16px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .color-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">awesome-design-md-preview</a>
+  <ul class="nav-links">
+    <li><a href="#colors">Colors</a></li>
+    <li><a href="#typography">Typography</a></li>
+    <li><a href="#buttons">Buttons</a></li>
+    <li><a href="#cards">Cards</a></li>
+    <li><a href="#forms">Forms</a></li>
+    <li><a href="#spacing">Spacing</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Get started</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Design System<br>Inspired by Aurora</h1>
+    <p>A design token catalog generated from DESIGN.md. Every color, glass surface, gradient, and glow shadow from the Aurora design language — visualized.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="#">Explore tokens</a>
+      <a class="btn-ghost" href="#">View documentation</a>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- COLORS -->
+<section class="section" id="colors">
+  <div class="section-label">01 / Colors</div>
+  <h2 class="section-title">Color Palette</h2>
+
+  <div class="color-group-label">Background Canvas</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#2e1065"></div><div class="color-swatch-info"><div class="color-swatch-name">Void Violet</div><div class="color-swatch-hex">#2e1065</div><div class="color-swatch-role">Gradient start</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#4a044e"></div><div class="color-swatch-info"><div class="color-swatch-name">Abyss Fuchsia</div><div class="color-swatch-hex">#4a044e</div><div class="color-swatch-role">Gradient mid</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#1e1b4b"></div><div class="color-swatch-info"><div class="color-swatch-name">Deep Indigo</div><div class="color-swatch-hex">#1e1b4b</div><div class="color-swatch-role">Gradient end</div></div></div>
+  </div>
+
+  <div class="color-group-label">Glass Surfaces</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.10)"></div><div class="color-swatch-info"><div class="color-swatch-name">Glass 05</div><div class="color-swatch-hex">rgba(255,255,255,0.05)</div><div class="color-swatch-role">Default card</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.15)"></div><div class="color-swatch-info"><div class="color-swatch-name">Glass 10</div><div class="color-swatch-hex">rgba(255,255,255,0.10)</div><div class="color-swatch-role">Hover state</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:rgba(255,255,255,0.20); border:1px solid rgba(255,255,255,0.20)"></div><div class="color-swatch-info"><div class="color-swatch-name">Glass 20</div><div class="color-swatch-hex">rgba(255,255,255,0.20)</div><div class="color-swatch-role">Active / raised</div></div></div>
+  </div>
+
+  <div class="color-group-label">Text</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#f5f3ff"></div><div class="color-swatch-info"><div class="color-swatch-name">Aurora White</div><div class="color-swatch-hex">#f5f3ff</div><div class="color-swatch-role">Primary text</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#ede9fe"></div><div class="color-swatch-info"><div class="color-swatch-name">Aurora Pale</div><div class="color-swatch-hex">#ede9fe</div><div class="color-swatch-role">Secondary text</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#c4b5fd"></div><div class="color-swatch-info"><div class="color-swatch-name">Aurora Mist</div><div class="color-swatch-hex">#c4b5fd</div><div class="color-swatch-role">Muted / placeholder</div></div></div>
+  </div>
+
+  <div class="color-group-label">Accent — The Aurora Light</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#a78bfa"></div><div class="color-swatch-info"><div class="color-swatch-name">Violet Light</div><div class="color-swatch-hex">#a78bfa</div><div class="color-swatch-role">Accent start</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:linear-gradient(135deg,#a78bfa,#e879f9)"></div><div class="color-swatch-info"><div class="color-swatch-name">Aurora Gradient</div><div class="color-swatch-hex">#a78bfa → #e879f9</div><div class="color-swatch-role">Primary interactive</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#e879f9"></div><div class="color-swatch-info"><div class="color-swatch-name">Fuchsia Light</div><div class="color-swatch-hex">#e879f9</div><div class="color-swatch-role">Accent end</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#c084fc"></div><div class="color-swatch-info"><div class="color-swatch-name">Accent Mid</div><div class="color-swatch-hex">#c084fc</div><div class="color-swatch-role">Focus ring</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:rgba(167,139,250,0.15); border:1px solid rgba(167,139,250,0.25)"></div><div class="color-swatch-info"><div class="color-swatch-name">Accent Subtle</div><div class="color-swatch-hex">rgba(167,139,250,0.15)</div><div class="color-swatch-role">Selected tint</div></div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- TYPOGRAPHY -->
+<div class="section-glass">
+<section class="section" id="typography">
+  <div class="section-label">02 / Typography</div>
+  <h2 class="section-title">Typography Scale</h2>
+
+  <div class="type-sample">
+    <div class="gradient-text" style="font-family:'Space Grotesk',sans-serif; font-size:56px; font-weight:700; line-height:1.07; letter-spacing:-0.02em;">Hero Display</div>
+    <div class="type-meta">Hero — 56px / 700 / lh 1.07 / ls -0.02em / Space Grotesk — gradient text treatment</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-family:'Space Grotesk',sans-serif; font-size:40px; font-weight:700; line-height:1.10; letter-spacing:-0.01em; color:#f5f3ff;">Display Heading</div>
+    <div class="type-meta">Display — 40px / 700 / lh 1.10 / ls -0.01em / Space Grotesk</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:600; line-height:1.20; letter-spacing:-0.01em; color:#f5f3ff;">Section Heading</div>
+    <div class="type-meta">Heading 1 — 32px / 600 / lh 1.20 / Space Grotesk</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:600; line-height:1.30; color:#f5f3ff;">Sub-section Title</div>
+    <div class="type-meta">Heading 2 — 24px / 600 / lh 1.30 / Space Grotesk</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; line-height:1.40; color:#f5f3ff;">Card Title — Space Grotesk Semibold</div>
+    <div class="type-meta">Heading 3 — 20px / 600 / lh 1.40 / Space Grotesk</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:16px; font-weight:400; line-height:1.60; color:#ede9fe;">Body copy — Aurora is the digital manifestation of the northern lights, an interface that lives inside a starless sky where light is generated from within rather than reflected from above.</div>
+    <div class="type-meta">Body — 16px / 400 / lh 1.60 / Inter</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:14px; font-weight:400; line-height:1.50; color:#ede9fe;">Body Small — Secondary descriptions, helper text, and supporting copy for card content.</div>
+    <div class="type-meta">Body Small — 14px / 400 / lh 1.50 / Inter</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:12px; font-weight:400; line-height:1.40; letter-spacing:0.02em; color:#c4b5fd;">Caption — Metadata, timestamps, badges</div>
+    <div class="type-meta">Caption — 12px / 400 / lh 1.40 / ls 0.02em / Inter</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:400; line-height:1.60; color:#c4b5fd;">const aurora = { bg: gradient(#2e1065, #4a044e, #1e1b4b) };</div>
+    <div class="type-meta">Code — 14px / 400 / lh 1.60 / JetBrains Mono</div>
+  </div>
+</section>
+</div>
+
+<hr class="section-divider">
+
+<!-- BUTTONS -->
+<section class="section" id="buttons">
+  <div class="section-label">03 / Buttons</div>
+  <h2 class="section-title">Button Variants</h2>
+  <div class="button-row" style="margin-bottom:24px;">
+    <div class="button-item"><a class="btn-primary" href="#">Primary button</a><div class="button-label">Primary (Gradient)</div></div>
+    <div class="button-item"><a class="btn-ghost" href="#">Ghost button</a><div class="button-label">Ghost (Glass)</div></div>
+    <div class="button-item"><a class="btn-link" href="#">Link button →</a><div class="button-label">Link (Violet)</div></div>
+  </div>
+  <div class="button-row">
+    <div class="button-item">
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,0.15);color:#c4b5fd;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;border:1px solid rgba(167,139,250,0.25);">✦ Aurora</span>
+      <div class="button-label">Tag / Pill</div>
+    </div>
+    <div class="button-item">
+      <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(232,121,249,0.15);color:#e879f9;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;border:1px solid rgba(232,121,249,0.25);">Fuchsia</span>
+      <div class="button-label">Tag Accent</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- CARDS -->
+<div class="section-glass">
+<section class="section" id="cards">
+  <div class="section-label">04 / Cards</div>
+  <h2 class="section-title">Glass Card Examples</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-tag">Glassmorphism</div>
+      <h3>Default Glass Card</h3>
+      <p>rgba(255,255,255,0.05) surface with backdrop-filter blur. The aurora gradient shows through the frosted glass.</p>
+    </div>
+    <div class="card card-selected">
+      <div class="card-tag" style="background:rgba(232,121,249,0.15);color:#e879f9;border-color:rgba(232,121,249,0.25);">Selected</div>
+      <h3>Active / Selected Card</h3>
+      <p>Violet-fuchsia gradient tint with left border accent and violet glow shadow — signals the selected state.</p>
+    </div>
+    <div class="card" style="background:rgba(255,255,255,0.10);">
+      <div class="card-tag">Hover State</div>
+      <h3>Elevated Glass Card</h3>
+      <p>Glass 10 surface (0.10 opacity) — the hover state. Surface brightens, the aurora behind it dims slightly.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<hr class="section-divider">
+
+<!-- FORMS -->
+<section class="section" id="forms">
+  <div class="section-label">05 / Forms</div>
+  <h2 class="section-title">Form Elements</h2>
+  <div class="form-group">
+    <label class="form-label">Search repositories</label>
+    <input class="form-input form-input--pill" type="text" placeholder="Search by name or topic…">
+    <div class="form-helper">Pill input — border-radius 999px</div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Project name</label>
+    <input class="form-input" type="text" placeholder="my-aurora-project">
+    <div class="form-helper">Default state</div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">API token</label>
+    <input class="form-input" type="text" value="aurora_live_••••••••" style="border-color:rgba(167,139,250,0.60);box-shadow:0 0 0 3px rgba(192,132,252,0.20);">
+    <div class="form-helper">Focus state — violet border + glow ring</div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Description</label>
+    <textarea class="form-textarea" placeholder="Describe your project…"></textarea>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SPACING -->
+<div class="section-glass">
+<section class="section" id="spacing">
+  <div class="section-label">06 / Spacing</div>
+  <h2 class="section-title">Spacing Scale</h2>
+  <div class="spacing-row">
+    <div class="spacing-item"><div class="spacing-block" style="width:4px"></div><div class="spacing-value">4</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:8px"></div><div class="spacing-value">8</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:12px"></div><div class="spacing-value">12</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:16px"></div><div class="spacing-value">16</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:20px"></div><div class="spacing-value">20</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:24px"></div><div class="spacing-value">24</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:32px"></div><div class="spacing-value">32</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:40px"></div><div class="spacing-value">40</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:48px"></div><div class="spacing-value">48</div></div>
+    <div class="spacing-item"><div class="spacing-block" style="width:64px"></div><div class="spacing-value">64</div></div>
+  </div>
+  <p style="font-size:14px; color:var(--text-muted); line-height:1.50;">Base unit: 8px. Component scale: 4–64px. Layout gaps: 48–64px between sections.</p>
+</section>
+</div>
+
+<hr class="section-divider">
+
+<!-- RADIUS -->
+<section class="section" id="radius">
+  <div class="section-label">07 / Radius</div>
+  <h2 class="section-title">Border Radius Scale</h2>
+  <div class="radius-row">
+    <div class="radius-item"><div class="radius-box" style="border-radius:4px"></div><div class="radius-label">4px</div><div class="radius-context">Badges, small chips</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:8px"></div><div class="radius-label">8px</div><div class="radius-context">Buttons, inputs</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:12px"></div><div class="radius-label">12px</div><div class="radius-context">Cards (default)</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:16px"></div><div class="radius-label">16px</div><div class="radius-context">Large panels</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:999px; width:64px"></div><div class="radius-label">999px</div><div class="radius-context">Tags, search, pills</div></div>
+    <div class="radius-item"><div class="radius-box" style="border-radius:50%"></div><div class="radius-label">50%</div><div class="radius-context">Avatars</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ELEVATION -->
+<div class="section-glass">
+<section class="section" id="elevation">
+  <div class="section-label">08 / Elevation</div>
+  <h2 class="section-title">Glass Elevation System</h2>
+  <div class="elevation-grid">
+    <div class="elevation-card" style="background:linear-gradient(135deg,#2e1065,#4a044e,#1e1b4b);border:1px solid rgba(255,255,255,0.06);">
+      <div class="elevation-label">Canvas</div>
+      <div class="elevation-desc">Aurora gradient background</div>
+    </div>
+    <div class="elevation-card" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);backdrop-filter:blur(12px);">
+      <div class="elevation-label">Glass 1</div>
+      <div class="elevation-desc">0.05 opacity + blur(12px)</div>
+    </div>
+    <div class="elevation-card" style="background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(12px);">
+      <div class="elevation-label">Glass 2</div>
+      <div class="elevation-desc">0.10 opacity — hover</div>
+    </div>
+    <div class="elevation-card" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(139,92,246,0.30);">
+      <div class="elevation-label">Glow</div>
+      <div class="elevation-desc">Glass 1 + violet glow shadow</div>
+    </div>
+    <div class="elevation-card" style="background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(232,121,249,0.15));border-left:3px solid rgba(167,139,250,0.60);border-top:1px solid rgba(255,255,255,0.10);border-right:1px solid rgba(255,255,255,0.10);border-bottom:1px solid rgba(255,255,255,0.10);backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(139,92,246,0.35);">
+      <div class="elevation-label">Selected</div>
+      <div class="elevation-desc">Gradient tint + border + glow</div>
+    </div>
+    <div class="elevation-card" style="background:rgba(255,255,255,0.05);border:3px solid rgba(192,132,252,0.50);backdrop-filter:blur(12px);box-shadow:0 0 0 3px rgba(192,132,252,0.20);">
+      <div class="elevation-label">Focus</div>
+      <div class="elevation-desc">Violet border + outer ring</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer class="footer">
+  Generated from Aurora DESIGN.md &mdash; <a href="#">awesome-design-md-preview</a>
+</footer>
+
+</body>
+</html>

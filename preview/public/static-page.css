@@ -470,6 +470,14 @@ main {
   color: var(--accent);
   opacity: 0.8;
 }
+.disclaimer--original {
+  background: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  border-left-color: var(--accent);
+  color: var(--text2);
+}
+.disclaimer--original .svg-icon {
+  opacity: 1;
+}
 
 /* ── Doc bar (DESIGN.md page top & bottom) ───────────── */
 .doc-bar {

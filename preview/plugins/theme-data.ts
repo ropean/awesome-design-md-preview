@@ -65,6 +65,8 @@ export function buildThemeData(): ThemeMeta[] {
 
     const THUMB_DIR = path.resolve(process.cwd(), 'public/thumbnails')
     const hasThumbnail = fs.existsSync(path.join(THUMB_DIR, id, 'preview-thumbnail.webp'))
+    const isOriginal = /<!--\s*original\s*-->/i.test(readmeRaw)
+    const readmeForRender = readmeRaw.replace(/<!--\s*original\s*-->\n?/gi, '')
     const screenshotUrl = extractScreenshotUrl(readmeRaw, false)
     const screenshotDarkUrl = extractScreenshotUrl(readmeRaw, true)
 
@@ -75,8 +77,8 @@ export function buildThemeData(): ThemeMeta[] {
       category: categoryMap.get(id) ?? 'Other',
       description,
       descriptionHtml: processLinks(md.render(descPara), id),
-      readmeHtml: processLinks(replaceR2Images(md.render(readmeRaw), id), id),
-      readmeHtmlDetail: processLinks(stripR2Images(md.render(readmeRaw)), id),
+      readmeHtml: processLinks(replaceR2Images(md.render(readmeForRender), id), id),
+      readmeHtmlDetail: processLinks(stripR2Images(md.render(readmeForRender)), id),
       designHtml: md.render(designRaw),
       previewUrl: `/design-md/${id}/preview.html`,
       previewDarkUrl: `/design-md/${id}/preview-dark.html`,
@@ -87,6 +89,7 @@ export function buildThemeData(): ThemeMeta[] {
       thumbnailUrl: `/thumbnails/${id}/preview-thumbnail.webp`,
       thumbnailDarkUrl: `/thumbnails/${id}/preview-dark-thumbnail.webp`,
       hasThumbnail,
+      isOriginal,
       prevTheme: null,
       nextTheme: null,
     }
@@ -114,10 +117,10 @@ export function themeDataPlugin(themes: ThemeMeta[]): Plugin {
       const cards: ThemeCard[] = themes.map(
         ({ id, name, letter, category, description, descriptionHtml,
            previewUrl, previewDarkUrl, designPageUrl,
-           thumbnailUrl, thumbnailDarkUrl, hasThumbnail, designMdUrl }) => ({
+           thumbnailUrl, thumbnailDarkUrl, hasThumbnail, isOriginal, designMdUrl }) => ({
           id, name, letter, category, description, descriptionHtml,
           previewUrl, previewDarkUrl, designPageUrl,
-          thumbnailUrl, thumbnailDarkUrl, hasThumbnail, designMdUrl,
+          thumbnailUrl, thumbnailDarkUrl, hasThumbnail, isOriginal, designMdUrl,
         }),
       )
       return `export default ${JSON.stringify(cards)}`
@@ -154,14 +157,14 @@ function stripMarkdown(text: string): string {
     .trim()
 }
 
-/** Replace R2 remote screenshot URLs with local thumbnail paths */
+/** Replace remote screenshot URLs with local thumbnail paths */
 function replaceR2Images(html: string, themeId: string): string {
   html = html.replace(
-    /src="https:\/\/pub-[a-f0-9]+\.r2\.dev\/designs\/[^"]+\/preview-dark-screenshot\.png"/g,
+    /src="https:\/\/[^"]+\/preview-dark-screenshot\.(?:png|webp)"/g,
     `src="/thumbnails/${themeId}/preview-dark-thumbnail.webp"`,
   )
   html = html.replace(
-    /src="https:\/\/pub-[a-f0-9]+\.r2\.dev\/designs\/[^"]+\/preview-screenshot\.png"/g,
+    /src="https:\/\/[^"]+\/preview-screenshot\.(?:png|webp)"/g,
     `src="/thumbnails/${themeId}/preview-thumbnail.webp"`,
   )
   return html
@@ -196,7 +199,7 @@ function processLinks(html: string, themeId: string): string {
 function stripR2Images(html: string): string {
   let first = true
   return html.replace(
-    /(?:<h3>[^<]*<\/h3>\s*)?<p>\s*(?:<img[^>]*pub-[a-f0-9]+\.r2\.dev[^>]*>\s*(?:<br[^>]*>\s*)?)+<\/p>/gi,
+    /(?:<h3>[^<]*<\/h3>\s*)?<p>\s*(?:<img[^>]*preview(?:-dark)?-screenshot[^>]*>\s*(?:<br[^>]*>\s*)?)+<\/p>/gi,
     () => {
       if (first) { first = false; return '<!--SCREENSHOT_PREVIEW-->' }
       return ''
@@ -204,10 +207,10 @@ function stripR2Images(html: string): string {
   )
 }
 
-/** Extract the R2 screenshot URL from raw README markdown */
+/** Extract the screenshot URL from raw README markdown */
 function extractScreenshotUrl(readme: string, dark: boolean): string {
   const pattern = dark
-    ? /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-dark-screenshot\.png)\)/
-    : /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-screenshot\.png)\)/
+    ? /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-dark-screenshot\.(?:png|webp))\)/
+    : /!\[[^\]]*\]\((https:\/\/[^)]+\/preview-screenshot\.(?:png|webp))\)/
   return readme.match(pattern)?.[1] ?? ''
 }
