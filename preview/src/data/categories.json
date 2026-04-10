@@ -24,5 +24,8 @@
   ],
   "Car Brands": [
     "bmw", "ferrari", "lamborghini", "renault", "tesla"
+  ],
+  "Original": [
+    "aurora"
   ]
 }

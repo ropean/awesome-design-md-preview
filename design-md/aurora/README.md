@@ -1,7 +1,5 @@
 # Aurora Design System
 
-<!-- original -->
-
 [DESIGN.md](./DESIGN.md) inspired by the aurora borealis — a glassmorphism dark-canvas design language with violet-to-fuchsia gradients, frosted glass surfaces, and luminescent glow shadows.
 
 ## Files

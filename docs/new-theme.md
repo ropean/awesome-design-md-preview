@@ -19,6 +19,32 @@ design-md/
 
 ---
 
+## Category
+
+Every theme must be registered in `preview/src/data/categories.json`. Add the theme ID to the appropriate category:
+
+| Category | Description |
+|----------|-------------|
+| `AI & Machine Learning` | AI products, LLM tools, model providers |
+| `Developer Tools & Platforms` | IDEs, CI/CD, dev infrastructure, coding tools |
+| `Infrastructure & Cloud` | Databases, cloud platforms, DevOps |
+| `Design & Productivity` | Design tools, no-code, productivity apps |
+| `Fintech & Crypto` | Finance, payments, crypto products |
+| `Enterprise & Consumer` | Major consumer brands, enterprise software |
+| `Car Brands` | Automotive brands |
+| `Original` | Design systems created from scratch, not derived from any existing product or brand |
+
+**If the theme is an original design** (not inspired by a real product), add it to the `"Original"` category. This displays a distinct badge on the theme's detail page in place of the standard disclaimer.
+
+```json
+// preview/src/data/categories.json
+{
+  "Original": ["aurora", "your-new-theme"]
+}
+```
+
+---
+
 ## File 1: DESIGN.md
 
 **This is the most important file.** It is the machine-readable specification that AI agents (Claude, Cursor, Stitch, etc.) use to generate UI matching the design system. Every value must be explicit, copy-pasteable, and unambiguous.
@@ -278,6 +304,7 @@ Describe what distinguishes this variant in the README's Files table.
 
 - [ ] `design-md/{theme-id}/` directory created with exactly 4 files
 - [ ] `{theme-id}` is lowercase, hyphen-separated, unique, and stable
+- [ ] Theme ID added to the correct category in `preview/src/data/categories.json`
 - [ ] DESIGN.md has all 9 sections with no placeholder text
 - [ ] Every CSS value in DESIGN.md is exact — no "approximately" or "similar to"
 - [ ] README.md uses the exact screenshot URL format with `.webp` extension

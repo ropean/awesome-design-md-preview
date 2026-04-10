@@ -186,7 +186,7 @@ function switchScreenshot(mode) {
     ? theme.readmeHtmlDetail.replace('<!--SCREENSHOT_PREVIEW-->', screenshotBlock)
     : theme.readmeHtmlDetail + screenshotBlock
 
-  const disclaimer = theme.isOriginal ? `
+  const disclaimer = theme.category === 'Original' ? `
 <div class="disclaimer disclaimer--original">
   ${icon('star', 14)}
   <span>Original design system — created from scratch, not derived from any existing product or brand.</span>
