@@ -11,7 +11,7 @@ import SvgIcon from './SvgIcon.vue'
       {{ SITE_TITLE }}
     </a>
     <nav class="header-links">
-      <a :href="REPO_PREVIEW" target="_blank" rel="noopener" class="header-link"><span>GitHub</span> <SvgIcon name="external-link" :size="13" /></a>
+      <a :href="REPO_PREVIEW" target="_blank" rel="noopener" class="header-link"><SvgIcon name="github" :size="15" /> <span>GitHub</span></a>
       <DarkModeToggle />
     </nav>
   </header>

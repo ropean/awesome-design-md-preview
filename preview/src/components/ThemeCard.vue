@@ -47,10 +47,12 @@ function onImgError() { imgError.value = true }
       <p class="card-desc" v-html="theme.descriptionHtml" />
 
       <div class="card-links">
-        <a :href="theme.previewUrl"     target="_blank" rel="noopener" data-tooltip="Light preview" class="link-icon" @click.stop><SvgIcon name="sun"       :size="16" /></a>
-        <a :href="theme.previewDarkUrl" target="_blank" rel="noopener" data-tooltip="Dark preview"  class="link-icon" @click.stop><SvgIcon name="moon"      :size="16" /></a>
-        <a :href="theme.designPageUrl"  target="_blank" rel="noopener" data-tooltip="DESIGN.md"     class="link-icon" @click.stop><SvgIcon name="file-text" :size="16" /></a>
-        <a :href="theme.designMdUrl" :download="designMdFileName(theme.id)" data-tooltip="Download DESIGN.md" class="link-icon" @click.stop><SvgIcon name="file-down" :size="16" /></a>
+        <a :href="theme.previewUrl"     target="_blank" rel="noopener" data-tooltip="Light preview" class="link-icon" @click.stop><SvgIcon name="sun"      :size="16" /></a>
+        <a :href="theme.previewDarkUrl" target="_blank" rel="noopener" data-tooltip="Dark preview"  class="link-icon" @click.stop><SvgIcon name="moon"     :size="16" /></a>
+        <div class="link-spacer"></div>
+        <a :href="theme.designPageUrl"  target="_blank" rel="noopener" data-tooltip="Design System"  class="link-icon" @click.stop><SvgIcon name="layers"   :size="16" /></a>
+        <a :href="theme.designMdUrl"    target="_blank" rel="noopener" data-tooltip="View source MD" class="link-icon" @click.stop><SvgIcon name="m-open"   :size="16" /></a>
+        <a :href="theme.designMdUrl" :download="designMdFileName(theme.id)" data-tooltip="Download MD" class="link-icon" @click.stop><SvgIcon name="markdown" :size="16" /></a>
       </div>
     </div>
   </a>
@@ -161,10 +163,13 @@ function onImgError() { imgError.value = true }
 .card-links {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   gap: var(--space-1);
   padding-top: var(--space-1);
   border-top: 1px solid var(--color-border);
+}
+
+.link-spacer {
+  flex: 1;
 }
 
 .link-icon {
@@ -211,6 +216,19 @@ function onImgError() { imgError.value = true }
 .link-icon[data-tooltip]:hover::after {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+.link-icon[data-tooltip]:first-child::before {
+  left: 0;
+  transform: translateX(0) translateY(var(--radius-sm));
+}
+.link-icon[data-tooltip]:first-child::after {
+  left: var(--radius-sm);
+  transform: translateX(0) translateY(var(--radius-sm));
+}
+.link-icon[data-tooltip]:first-child:hover::before,
+.link-icon[data-tooltip]:first-child:hover::after {
+  transform: translateX(0) translateY(0);
 }
 
 .link-icon[data-tooltip]:last-child::before {
