@@ -18,9 +18,9 @@ function onImgError() { imgError.value = true }
 </script>
 
 <template>
-  <a class="card" :href="`/themes/${theme.id}/`">
-    <!-- Thumbnail -->
-    <div class="card-thumb">
+  <div class="card">
+    <!-- Thumbnail (only this area navigates to the theme page) -->
+    <a class="card-thumb" :href="`/themes/${theme.id}/`" :aria-label="`View ${theme.name} theme`">
       <img
         v-if="!imgError"
         :src="imgSrc"
@@ -35,9 +35,9 @@ function onImgError() { imgError.value = true }
         :alt="`${theme.name} placeholder`"
         class="thumb-img placeholder"
       />
-    </div>
+    </a>
 
-    <!-- Card body -->
+    <!-- Card body (non-navigating text + action buttons) -->
     <div class="card-body">
       <div class="card-header">
         <h3 class="card-title">{{ theme.name }}</h3>
@@ -47,15 +47,15 @@ function onImgError() { imgError.value = true }
       <p class="card-desc" v-html="theme.descriptionHtml" />
 
       <div class="card-links">
-        <a :href="theme.previewUrl"     target="_blank" rel="noopener" data-tooltip="Light preview" class="link-icon" @click.stop><SvgIcon name="sun"      :size="16" /></a>
-        <a :href="theme.previewDarkUrl" target="_blank" rel="noopener" data-tooltip="Dark preview"  class="link-icon" @click.stop><SvgIcon name="moon"     :size="16" /></a>
+        <a :href="theme.previewUrl"     target="_blank" rel="noopener" data-tooltip="Light preview" class="link-icon"><SvgIcon name="sun"      :size="16" /></a>
+        <a :href="theme.previewDarkUrl" target="_blank" rel="noopener" data-tooltip="Dark preview"  class="link-icon"><SvgIcon name="moon"     :size="16" /></a>
         <div class="link-spacer"></div>
-        <a :href="theme.designPageUrl"  target="_blank" rel="noopener" data-tooltip="Design System"  class="link-icon" @click.stop><SvgIcon name="layers"   :size="16" /></a>
-        <a :href="theme.designMdUrl"    target="_blank" rel="noopener" data-tooltip="View source MD" class="link-icon" @click.stop><SvgIcon name="m-open"   :size="16" /></a>
-        <a :href="theme.designMdUrl" :download="designMdFileName(theme.id)" data-tooltip="Download MD" class="link-icon" @click.stop><SvgIcon name="markdown" :size="16" /></a>
+        <a :href="theme.designPageUrl"  target="_blank" rel="noopener" data-tooltip="Design System"  class="link-icon"><SvgIcon name="layers"   :size="16" /></a>
+        <a :href="theme.designMdUrl"    target="_blank" rel="noopener" data-tooltip="View source MD" class="link-icon"><SvgIcon name="m-open"   :size="16" /></a>
+        <a :href="theme.designMdUrl" :download="designMdFileName(theme.id)" data-tooltip="Download MD" class="link-icon"><SvgIcon name="markdown" :size="16" /></a>
       </div>
     </div>
-  </a>
+  </div>
 </template>
 
 <style scoped>
@@ -76,10 +76,12 @@ function onImgError() { imgError.value = true }
   box-shadow: var(--shadow-md);
 }
 
-/* ── Thumbnail: normal flow, full width, height follows image aspect ratio ── */
+/* ── Thumbnail: only this <a> navigates to the theme page ── */
 .card-thumb {
   display: block;
   width: 100%;
+  text-decoration: none;
+  outline-offset: -2px;
 }
 
 .thumb-img {
