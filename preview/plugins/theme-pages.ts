@@ -120,7 +120,7 @@ function pageShell(opts: {
 <header class="site-header">
   <a href="/" class="site-logo"><img src="/favicon.svg" alt="" width="32" height="32" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:8px" />${SITE_TITLE}</a>
   <nav class="header-links">
-    <a href="${REPO_PREVIEW}" target="_blank" rel="noopener" class="header-link">GitHub ${icon('external-link', 13)}</a>
+    <a href="${REPO_PREVIEW}" target="_blank" rel="noopener" class="header-link">${icon('github', 15)} <span>GitHub</span></a>
     <button class="theme-toggle" onclick="(function(){var d=document.documentElement,t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);localStorage.setItem('theme',t);})()">
       <span class="toggle-icon-sun">${icon('sun', 16)}</span><span class="toggle-icon-moon">${icon('moon', 16)}</span>
     </button>
@@ -162,8 +162,9 @@ function generateDetailHtml(theme: ThemeMeta): string {
     </div>
     <div class="sc-group sc-group--end">
       <div class="btn-group">
-        <a href="${esc(theme.designMdUrl)}" download="${esc(designMdFileName(theme.id))}" class="btn btn-primary btn-group-item">${icon('arrow-down', 14)} Download MD</a>
-        <a href="${esc(theme.designPageUrl)}" class="btn btn-primary btn-group-item btn-group-divider">Design System ${icon('arrow-right', 14)}</a>
+        <a href="${esc(theme.designMdUrl)}" target="_blank" rel="noopener" class="btn btn-primary btn-group-item btn-group-divider">${icon('m-open', 14)} <span class="btn-label">View source MD</span></a>
+        <a href="${esc(theme.designMdUrl)}" download="${esc(designMdFileName(theme.id))}" class="btn btn-primary btn-group-item">${icon('markdown', 14)} <span class="btn-label">Download MD</span></a>
+        <a href="${esc(theme.designPageUrl)}" class="btn btn-primary btn-group-item btn-group-divider">${icon('layers', 14)} <span class="btn-label">Design System</span></a>
       </div>
     </div>
   </div>`
@@ -217,8 +218,9 @@ function generateDesignHtml(theme: ThemeMeta): string {
 
   const btnGroup = (id: string) => `
 <div class="btn-group">
-  <a href="${mdUrl}" download="${fileName}" class="btn btn-primary btn-group-item">${icon('arrow-down', 14)} Download</a>
-  <button class="btn btn-primary btn-group-item btn-group-divider" id="${id}" onclick="copyDesignMd('${mdUrl}','${id}')">${icon('copy', 14)} Copy</button>
+  <a href="${mdUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-group-item btn-group-divider">${icon('m-open', 14)} <span class="btn-label">View source MD</span></a>
+  <a href="${mdUrl}" download="${fileName}" class="btn btn-primary btn-group-item">${icon('markdown', 14)} <span class="btn-label">Download MD</span></a>
+  <button class="btn btn-primary btn-group-item btn-group-divider" id="${id}" onclick="copyDesignMd('${mdUrl}','${id}')">${icon('copy', 14)} <span class="btn-label">Copy</span></button>
 </div>`
 
   const topBar = `
@@ -230,7 +232,7 @@ function generateDesignHtml(theme: ThemeMeta): string {
   const bottomBar = `
 <div class="doc-bar">
   <div class="doc-bar-actions">
-    <button class="btn btn-secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">${icon('arrow-up', 14)} Back to top</button>
+    <button class="btn btn-secondary" onclick="window.scrollTo({top:0,behavior:'smooth'})">${icon('arrow-up', 14)} <span class="btn-label">Back to top</span></button>
     ${btnGroup('copy-btn-bottom')}
   </div>
 </div>`
